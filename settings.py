@@ -10,11 +10,10 @@
 # == PROJECT ======================================= #
 
 """
-  @project          unitech
+  @project          django_boilerplate
   @contributor      Aaron Alexander (nerdfiles@gmail.com)
-  @contributor      Will Dawson (will@pennebaker.com)
   @datetime         11.4.2011.11.56.a
-  @devlogin         admin/pennebaker
+  @devlogin         admin/admin
 """
 
 # == IMPORTS ======================================= #
@@ -44,7 +43,7 @@ DIRNAME = os.path.dirname(os.path.abspath(__file__))
 
 # == VENV ======================================== #
 
-VENV_ROOT = os.path.join('/Users','pbdigital','.virtualenvs','django_unitech')
+VENV_ROOT = os.path.join('/Users','pbdigital','.virtualenvs','django_boilerplate')
 
 
 # == DEVELOPMENT/DEBUGGING ======================================= #
@@ -105,7 +104,7 @@ USE_L10N = True
 
 # == URLCONF ======================================= #
 
-ROOT_URLCONF = 'unitech.urls'
+ROOT_URLCONF = 'django_boilerplate.urls'
 
 
 # == URL ======================================= #
@@ -123,7 +122,7 @@ ADMIN_MEDIA_PREFIX = '/_assets/admin/'
 
 # == theme == #
 
-THEME = "unitech"
+THEME = "boilerplate"
 THEME_DIR = os.path.join(PROJECT_ROOT, "_themes", THEME)
 
 # == template == #
@@ -189,9 +188,9 @@ INSTALLED_APPS = (
   'debug_toolbar',
   'south',
   
-  # == custom/unitech == #
+  # == custom/django_boilerplate == #
   
-  'unitech',
+  'django_boilerplate',
   
   # == admin == #
   'django.contrib.admin',

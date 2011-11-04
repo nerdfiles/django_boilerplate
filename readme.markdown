@@ -1,4 +1,4 @@
-# unitech Website project
+# Django Boilerplate Project
 
 Django project!
 

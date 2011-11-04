@@ -25,7 +25,7 @@ def rut_roh(request):
 urlpatterns = patterns('',
   (r'^rut-rot/$', rut_roh),
   url(r'^$', include('website.urls')),
-  #url(r'^$', 'unitech.views.index', name='index'),
+  #url(r'^$', 'boilerplate.views.index', name='index'),
   
   # == admin dashboard == #
   url(r'^dashboard/', include(admin.site.urls)),
