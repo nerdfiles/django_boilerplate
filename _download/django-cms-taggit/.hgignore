@@ -1,5 +1,0 @@
-syntax: glob
-*.pyc
-*.egg-info
-dist
-build

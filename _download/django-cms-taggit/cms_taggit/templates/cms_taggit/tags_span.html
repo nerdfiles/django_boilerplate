@@ -1,1 +1,0 @@
-{% for tag in current_page.pagetaggit_set.get.tags.all %}<span class="tags"><a href="{{ TAGS_URL|default:'/tags/' }}{{ tag.slug }}" rel="tag">{{ tag.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}
