@@ -3,7 +3,7 @@
 *.pyc
 *.swo
 *.swp
-*.db
+# == DEV: *.db
 *.swn
 
 # == Directories ========================== #
@@ -25,6 +25,6 @@ Thumbs.db
 
 # == Local ========================== #
 
-local_settings.py
-dev.db
+# == DEV: local_settings.py
+# == DEV: dev.db
 pip-log.txt
