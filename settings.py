@@ -19,6 +19,7 @@
 
 # == IMPORTS ======================================= #
 
+from django.conf import settings
 import os, sys, datetime
 import logging
 
@@ -28,13 +29,22 @@ import logging
 PROJECT_ROOT = os.path.dirname(__file__)
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
 
-# == gotchas == #
+# == pythonpath inserts == #
 
-sys.path.insert(0, PROJECT_ROOT)
-sys.path.insert(1, os.path.join(PROJECT_ROOT, "djangologging"))
+# local
+ 
+#sys.path.insert(0, PROJECT_ROOT)
+#sys.path.insert(1, os.path.join(PROJECT_ROOT, "djangologging"))
 
-sys.path.append(PROJECT_ROOT)
-sys.path.append(os.path.join(PROJECT_ROOT, "djangologging"))
+# apache mod_wsgi
+
+#sys.path.append(PROJECT_ROOT)
+#sys.path.append(os.path.join(PROJECT_ROOT, "djangologging"))
+
+
+# == VENV ======================================== #
+
+VENV_ROOT = os.path.join('/Users','pbdigital','.virtualenvs','django_unitech')
 
 
 # == DEVELOPMENT/DEBUGGING ======================================= #
@@ -93,24 +103,39 @@ USE_I18N = True
 USE_L10N = True
 
 
-# == THEME ======================================= #
+# == URLCONF ======================================= #
 
-THEME = "unitech"
-THEME_DIR = os.path.join(PROJECT_ROOT, "_themes", THEME)
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, "_themes", THEME, "templates"),
-)
-MEDIA_ROOT = os.path.realpath(os.path.join(THEME_DIR, "_assets"))
+ROOT_URLCONF = 'unitech.urls'
 
 
 # == URL ======================================= #
 
+# == media url == #
+
 MEDIA_URL = '/_assets/'
 
-
-# == ADMIN ======================================= #
+# == admin media == #
 
 ADMIN_MEDIA_PREFIX = '/_assets/admin/'
+
+
+# == THEME/TEMPLATE/MEDIA ======================================= #
+
+# == theme == #
+
+THEME = "unitech"
+THEME_DIR = os.path.join(PROJECT_ROOT, "_themes", THEME)
+
+# == template == #
+
+TEMPLATE_DIRS = (
+  #os.path.join(PROJECT_ROOT, "_themes",),
+  os.path.join(PROJECT_ROOT, "_themes", THEME, "_templates"),
+)
+
+# == media == #
+
+MEDIA_ROOT = os.path.realpath(os.path.join(THEME_DIR, "_assets"))
 
 
 # == STATIC ======================================= #
@@ -142,66 +167,93 @@ MIDDLEWARE_CLASSES = (
   'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.contrib.messages.middleware.MessageMiddleware',
   
-  'djangologging.middleware.LoggingMiddleware',
+  #'djangologging.middleware.LoggingMiddleware',
   #'djangologging.middleware.SuppressLoggingOnAjaxRequestsMiddleware',
-)
-
-
-# == URLCONF ======================================= #
-
-ROOT_URLCONF = 'unitech.urls'
-
-
-# == TEMPLATE ======================================= #
-
-TEMPLATE_DIRS = (
 )
 
 
 # == INSTALLED APPS ======================================= #
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    
-    # == admin == #
-    
-    'django.contrib.admin',
-    'django.contrib.admindocs',
+  'django.contrib.auth',
+  'django.contrib.contenttypes',
+  'django.contrib.sessions',
+  'django.contrib.sites',
+  'django.contrib.messages',
+  
+  # == admin == #
+  
+  'django.contrib.admin',
+  'django.contrib.admindocs',
 )
 
 
 # == LOGGING ======================================= #
 
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
+  'version': 1,
+  'disable_existing_loggers': True,
+  'formatters': {
+    'standard': {
+      'format': '%(asctime)s [%(levelname)s] %(name)s: %(message)s'
     },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
+    'verbose': {
+      'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+    },
+    'simple': {
+      'format': '%(levelname)s %(message)s'
+    },
+  },
+  'handlers': {
+    'file': {
+      'level': 'INFO',
+      'class': 'logging.handlers.RotatingFileHandler',
+      'filename': os.path.join(PROJECT_ROOT, '_log', 'requests.log'),
+      'maxBytes': 1024*1024*5, # 5MB
+      'backupCount': 10,
+      'formatter': 'standard'
+    },
+    'file_userlogins': {              # define and name a handler
+      'level': 'DEBUG',
+      'class': 'logging.FileHandler', # set the logging class to log to a file
+      'formatter': 'verbose',         # define the formatter to associate
+      'filename': os.path.join(PROJECT_ROOT, '_log', 'userlogins.log') # log file
+    },
+    'file_usersaves': {               # define and name a second handler
+      'level': 'DEBUG',
+      'class': 'logging.FileHandler', # set the logging class to log to a file
+      'formatter': 'verbose',         # define the formatter to associate
+      'filename': os.path.join(PROJECT_ROOT, '_log', 'usersaves.log')  # log file
+    },
+  },
+  'loggers': {
+    'django.request': {
+      'handlers': ['file'],
+      'level': 'INFO',
+      'propagate': False,
+    },
+    'logview.userlogins': {            # define a logger - give it a name
+      'handlers': ['file_userlogins'], # specify what handler to associate
+      'level': 'INFO',                 # specify the logging level
+      'propagate': True,
+    },     
+
+    'logview.usersaves': {             # define another logger
+      'handlers': ['file_usersaves'],  # associate a different handler
+      'level': 'INFO',                 # specify the logging level
+      'propagate': True,
+    },        
+  }       
 }
 
 
 # == CACHING ======================================= #
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': '127.0.0.1:11211',
-    }
+  'default': {
+    'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+    'LOCATION': '127.0.0.1:11211',
+  }
 }
 
 CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
@@ -226,7 +278,7 @@ EMAIL_USE_TLS = True
 # == LOCAL ======================================= #
 
 try:
-    from local_settings import *
+  from local_settings import *
 except ImportError:
-    pass
+  pass
 

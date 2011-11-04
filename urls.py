@@ -2,6 +2,7 @@
 
 # == IMPORTS ======================================== #
 
+from django.conf import settings
 from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.views.generic.simple import redirect_to
@@ -23,7 +24,8 @@ def rut_roh(request):
 
 urlpatterns = patterns('',
   (r'^rut-rot/$', rut_roh),
-  url(r'^$', 'unitech.views.home', name='home'),
+  url(r'^$', include('website.urls')),
+  #url(r'^$', 'unitech.views.index', name='index'),
   
   # == admin dashboard == #
   url(r'^dashboard/', include(admin.site.urls)),

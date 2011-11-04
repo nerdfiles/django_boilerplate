@@ -1,0 +1,9 @@
+# Apache mod_python
+# @see http://codespatter.com/2009/04/10/how-to-add-locations-to-python-path-for-reusable-django-apps/
+
+SetHandler python-program
+PythonHandler django.core.handlers.modpython
+SetEnv DJANGO_SETTINGS_MODULE myproject.settings
+PythonOption django.root /myproject
+PythonDebug On
+PythonPath "['/var/www','/var/www/myproject/apps'] + sys.path"
