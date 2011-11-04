@@ -1,0 +1,3 @@
+{% if current_page.pagetaggit_set.get.tags.count %}<meta name="keywords" content="{% for tag in current_page.pagetaggit_set.get.tags.all %}{{ tag.name }}{% if not forloop.last %}, {% endif %}{% endfor %}" />
+{% endif %}{% if current_page.pagetaggit_set.get.meta_description %}<meta name="description" content="{{ current_page.pagetaggit_set.get.meta_description }}" />
+{% endif %}

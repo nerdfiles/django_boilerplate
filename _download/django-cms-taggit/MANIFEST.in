@@ -1,0 +1,2 @@
+include *.txt *.rst
+recursive-include cms_taggit/templates *
