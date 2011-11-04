@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
+# == IMPORTS ======================================== #
+
 from django.conf import settings
+
+
+# == CONTEXT PROCESSORS ======================================== #
 
 def google_analytics(request):
 
@@ -16,3 +21,4 @@ def google_analytics(request):
             f.close()
 
     return dict(GA_CODE=GA_CODE)
+

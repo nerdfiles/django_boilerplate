@@ -1,19 +1,37 @@
+# -*- coding: utf-8 -*-
+
+# == IMPORTS ======================================== #
+
 from django.conf.urls.defaults import *
 from django.contrib import admin
 from django.views.generic.simple import redirect_to
 
+
+# == ADMIN ======================================== #
+
 admin.autodiscover()
+
+
+# == UTIL ======================================== #
 
 def rut_roh(request):
   """ Simulates a server error """
   1/0
     
+
+# == URLPATTERNS ======================================== #
+
 urlpatterns = patterns('',
   (r'^rut-rot/$', rut_roh),
   url(r'^$', 'unitech.views.home', name='home'),
-  url(r"^admin/doc/", include("django.contrib.admindocs.urls")),
-  url(r"^admin/(.*)", admin.site.root),
+  
+  # == admin dashboard == #
+  url(r'^dashboard/', include(admin.site.urls)),
+  url(r'^dashboard/doc/', include('django.contrib.admindocs.urls')),  
 )
+
+
+# == LOCAL ======================================== #
 
 if settings.LOCAL_DEVELOPMENT:
   urlpatterns += patterns("django.views",
@@ -21,3 +39,4 @@ if settings.LOCAL_DEVELOPMENT:
         "document_root": settings.MEDIA_ROOT,
     })
   )
+
