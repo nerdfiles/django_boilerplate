@@ -1,5 +1,9 @@
-# Django settings for unitech project.
+import os
 
+PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+DIRNAME = os.path.dirname(os.path.abspath(__file__))
+
+LOCAL_DEVELOPMENT = True
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -8,7 +12,7 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
+INTERNAL_IPS = ('127.0.0.1',)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
@@ -43,9 +47,15 @@ USE_I18N = True
 # calendars according to the current locale
 USE_L10N = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+THEME = "unitech"
+
+THEME_DIR = os.path.join(PROJECT_ROOT, "_themes", THEME)
+
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_ROOT, "_themes", THEME, "templates"),
+)
+
+MEDIA_ROOT = os.path.realpath(os.path.join(THEME_DIR, "static"))
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -143,3 +153,29 @@ LOGGING = {
         },
     }
 }
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        'LOCATION': '127.0.0.1:11211',
+    }
+}
+
+CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
+CACHE_TIMEOUT = 60*30
+CACHE_PREFIX = "Z"
+
+PIL_IMAGEFILE_MAXBLOCK = 1024 * 2 ** 10
+
+
+# Email Settings
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+try:
+    from local_settings import *
+except ImportError:
+    pass

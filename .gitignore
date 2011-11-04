@@ -1,0 +1,30 @@
+# == File types ========================== #
+
+*.pyc
+*.swo
+*.swp
+*.db
+*.swn
+
+# == Directories ========================== #
+
+_logs/
+_download/
+
+# == Specific files ========================== #
+
+projectname/settings.py
+
+# == OS generated files ========================== #
+
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+*~
+
+# == Local ========================== #
+
+local_settings.py
+dev.db
+pip-log.txt
