@@ -167,6 +167,8 @@ MIDDLEWARE_CLASSES = (
   'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.contrib.messages.middleware.MessageMiddleware',
   
+  'debug_toolbar.middleware.DebugToolbarMiddleware',
+  
   #'djangologging.middleware.LoggingMiddleware',
   #'djangologging.middleware.SuppressLoggingOnAjaxRequestsMiddleware',
 )
@@ -175,17 +177,69 @@ MIDDLEWARE_CLASSES = (
 # == INSTALLED APPS ======================================= #
 
 INSTALLED_APPS = (
+
+  # == core == #
   'django.contrib.auth',
   'django.contrib.contenttypes',
   'django.contrib.sessions',
   'django.contrib.sites',
   'django.contrib.messages',
   
-  # == admin == #
+  # == apps == #
+  'debug_toolbar',
+  'south',
   
+  # == custom/unitech == #
+  
+  'unitech',
+  
+  # == admin == #
   'django.contrib.admin',
   'django.contrib.admindocs',
 )
+
+
+# == APP: DEBUG TOOLBAR ======================================= #
+"""
+  @see http://pypi.python.org/pypi/django-debug-toolbar/
+"""
+
+DEBUG_TOOLBAR_PANELS = (
+  'debug_toolbar.panels.version.VersionDebugPanel',
+  'debug_toolbar.panels.timer.TimerDebugPanel',
+  'debug_toolbar.panels.settings_vars.SettingsVarsDebugPanel',
+  'debug_toolbar.panels.headers.HeaderDebugPanel',
+  'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
+  'debug_toolbar.panels.template.TemplateDebugPanel',
+  'debug_toolbar.panels.sql.SQLDebugPanel',
+  'debug_toolbar.panels.signals.SignalDebugPanel',
+  'debug_toolbar.panels.logger.LoggingPanel',
+)
+
+def custom_show_toolbar(request):
+  return True
+
+DEBUG_TOOLBAR_CONFIG = {
+  'INTERCEPT_REDIRECTS': False,
+  'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
+}
+
+
+# == APP: PIL ======================================= #
+"""
+  @see http://www.pythonware.com/products/pil/
+"""
+
+PIL_IMAGEFILE_MAXBLOCK = 1024 * 2 ** 10
+
+
+# == EMAIL SETTINGS ======================================= #
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 
 # == LOGGING ======================================= #
@@ -259,20 +313,6 @@ CACHES = {
 CACHE_BACKEND = 'memcached://127.0.0.1:11211/'
 CACHE_TIMEOUT = 60*30
 CACHE_PREFIX = "Z"
-
-
-# == APP: PIL ======================================= #
-
-PIL_IMAGEFILE_MAXBLOCK = 1024 * 2 ** 10
-
-
-# == APP?: DJANGO-EMAIL ======================================= #
-
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
 
 
 # == LOCAL ======================================= #
