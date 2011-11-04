@@ -14,6 +14,7 @@
   @contributor      Aaron Alexander (nerdfiles@gmail.com)
   @contributor      Will Dawson (will@pennebaker.com)
   @datetime         11.4.2011.11.56.a
+  @devlogin         admin/pennebaker
 """
 
 # == IMPORTS ======================================= #
@@ -56,19 +57,16 @@ SECRET_KEY = 'h35nfv4bn6klt-1@dkyknvc*-h@$n7fm92$^9kc6^^6ito*jd4'
 # == DB ======================================= #
 
 """
+  @engines 'postgresql_psycopg2'|'postgresql'|'mysql'|'sqlite3'|'oracle'
   @note If using local settings, this will be overridden.
 """
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
-        'USER': '',                      # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+DATABASE_ENGINE = 'django.db.backends.sqlite3'
+DATABASE_NAME = 'dev.db'
+DATABASE_USER = ''
+DATABASE_PASSWORD = ''
+DATABASE_HOST = ''
+DATABASE_PORT = ''
 
 
 # == LANGUAGE ======================================= #

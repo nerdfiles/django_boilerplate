@@ -6,7 +6,7 @@
   @engines            'postgresql_psycopg2'|'postgresql'|'mysql'|'sqlite3'|'oracle'
 """
 
-DATABASE_ENGINE = 'sqlite3'
+DATABASE_ENGINE = 'django.db.backends.sqlite3'
 DATABASE_NAME = 'dev.db'
 DATABASE_USER = ''
 DATABASE_PASSWORD = ''
