@@ -20,6 +20,7 @@
 # == IMPORTS ======================================= #
 
 import os, sys, datetime
+import logging
 
 
 # == UTIL ======================================= #
@@ -132,6 +133,9 @@ MIDDLEWARE_CLASSES = (
   'django.middleware.csrf.CsrfViewMiddleware',
   'django.contrib.auth.middleware.AuthenticationMiddleware',
   'django.contrib.messages.middleware.MessageMiddleware',
+  
+  'djangologging.middleware.LoggingMiddleware',
+  'djangologging.middleware.SuppressLoggingOnAjaxRequestsMiddleware',
 )
 
 
@@ -154,6 +158,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
+    
+    'djangologging.middleware.LoggingMiddleware',
     
     # == admin == #
     
