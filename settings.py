@@ -25,8 +25,16 @@ import logging
 
 # == UTIL ======================================= #
 
-PROJECT_ROOT = os.path.realpath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.dirname(__file__)
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
+
+# == gotchas == #
+
+sys.path.insert(0, PROJECT_ROOT)
+sys.path.insert(1, os.path.join(PROJECT_ROOT, "djangologging"))
+
+sys.path.append(PROJECT_ROOT)
+sys.path.append(os.path.join(PROJECT_ROOT, "djangologging"))
 
 
 # == DEVELOPMENT/DEBUGGING ======================================= #
@@ -135,7 +143,7 @@ MIDDLEWARE_CLASSES = (
   'django.contrib.messages.middleware.MessageMiddleware',
   
   'djangologging.middleware.LoggingMiddleware',
-  'djangologging.middleware.SuppressLoggingOnAjaxRequestsMiddleware',
+  #'djangologging.middleware.SuppressLoggingOnAjaxRequestsMiddleware',
 )
 
 
@@ -158,8 +166,6 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
-    
-    'djangologging.middleware.LoggingMiddleware',
     
     # == admin == #
     
