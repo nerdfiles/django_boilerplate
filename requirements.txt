@@ -16,6 +16,7 @@ Django==1.11.18
 docutils==0.14
 enum34==1.1.6
 ethereum==1.6.0
+feedparser==5.2.1
 gevent==1.1.0
 gevent-websocket==0.10.1
 gipc==0.4.0
