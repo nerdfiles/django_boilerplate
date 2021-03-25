@@ -43,7 +43,7 @@ pyethapp==1.2.0
 pyethash==0.1.27
 pysha3==1.0.2
 pytz==2018.9
-PyYAML==4.2b4
+PyYAML==5.4
 repoze.lru==0.7
 requests==2.21.0
 rlp==0.6.0
