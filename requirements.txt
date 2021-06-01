@@ -56,7 +56,7 @@ statistics==1.0.3.5
 tinyrpc==0.6
 tox==2.9.1
 traitlets==4.3.2
-urllib3==1.24.1
+urllib3==1.26.5
 virtualenv==15.0.1
 websocket==0.2.1
 Werkzeug==0.12.2
