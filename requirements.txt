@@ -24,7 +24,7 @@ gnureadline==6.3.3
 greenlet==0.4.12
 idna==2.8
 ipaddress==1.0.18
-ipython==4.2.1
+ipython==7.16.3
 ipython-genutils==0.2.0
 leveldb==0.194
 lmdb==0.93
